@@ -1,0 +1,51 @@
+# These settings are synced to GitHub by https://probot.github.io/apps/settings/
+
+repository:
+  # See https://docs.github.com/en/rest/reference/repos#update-a-repository for all available settings.
+  description: Typed asyncio client for splatoon3.ink's Splatoon 3 feeds
+
+  # GitHub allows at most 20 topics, each lowercase letters, digits and hyphens.
+  topics: splatoon, splatoon3, splatoon-3, splatoon3ink, splatnet, splatnet3, nintendo, nintendo-switch, splatfest, salmon-run, python, asyncio, aiohttp, pydantic, pydantic-v2, api-client, api-wrapper, typed, type-hints, gaming
+
+  # Either `true` to make the repository private, or `false` to make it public.
+  # Public: PepperCord's image installs it from git without a token.
+  private: false
+
+  has_issues: true
+  # Off: the README is the documentation.
+  has_wiki: false
+  has_projects: false
+  has_discussions: false
+
+  default_branch: main
+  delete_branch_on_merge: true
+  # Off: nothing merges on its own here. There's no Dependabot, since a library's lock only pins its tools.
+  allow_auto_merge: false
+
+branches:
+  - name: main
+    # https://docs.github.com/en/rest/reference/repos#update-branch-protection
+    # Branch Protection settings. Set to null to disable
+    protection:
+      # Required. Require at least one approving review on a pull request, before merging. Set to null to disable.
+      required_pull_request_reviews: null
+      # Required. Require status checks to pass before merging. Set to null to disable
+      required_status_checks:
+        # Required. Require branches to be up to date before merging.
+        strict: false
+        # Required. The list of status checks to require in order to merge into this branch
+        # The jobs in workflows/ci.yml, by name. Not `live`: it only runs on its weekly schedule or by hand.
+        contexts:
+          - lint
+          - type
+          - test (3.12)
+          - test (3.13)
+          - test (3.14)
+          - test (3.15)
+      # Required. Enforce all configured restrictions for administrators. Set to true to enforce required status checks for repository administrators. Set to null to disable.
+      # Off: admins still push to main directly.
+      enforce_admins: false
+      # Required. Restrict who can push to this branch. Team and user restrictions are only available for organization-owned repositories. Set to null to disable.
+      # Off: this is a personal repository, where GitHub rejects user and team restrictions, and with them the whole
+      # protection.
+      restrictions: null
