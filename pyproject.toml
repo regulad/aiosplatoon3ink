@@ -1,0 +1,73 @@
+[project]
+name = "aiosplatoon3ink"
+version = "0.1.0"
+description = "An asyncio client for the Splatoon 3 data that splatoon3.ink publishes, with typed models of each feed."
+authors = [{ name = "Parker Wahle", email = "regulad@regulad.xyz" }]
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiohttp (>=3.9,<4)",
+    "pydantic (>=2.11,<3)",
+    "yarl (>=1.9,<2)",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: AsyncIO",
+    "Framework :: aiohttp",
+    "Framework :: Pydantic :: 2",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Games/Entertainment",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/regulad/aiosplatoon3ink"
+"Data source" = "https://splatoon3.ink/"
+
+[tool.poetry]
+packages = [{ include = "aiosplatoon3ink", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4"  # Only bounds the lock, which Poetry's own pin needs; requires-python above stays open
+
+[tool.poetry.group.dev.dependencies]
+poetry = "2.5.1"  # Pinned; CI installs this version
+black = "26.10.1"  # Pinned in .pre-commit-config.yaml
+pre-commit = "^4.7.0"
+pytest = "^9.0.0"
+pytest-aiohttp = "^1.1.0"
+
+[tool.poetry.group.type.dependencies]
+mypy = "^2.4.1"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+
+[tool.mypy]
+mypy_path = "src"
+strict = true
+plugins = ["pydantic.mypy"]
+warn_unreachable = true
+strict_equality_for_none = true
+enable_error_code = ["deprecated"]
+show_error_code_links = true
+pretty = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = ["live: fetches the real feeds from splatoon3.ink (deselected unless -m live is given)"]
+addopts = "-m 'not live'"
+testpaths = ["tests"]
