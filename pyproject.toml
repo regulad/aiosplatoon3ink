@@ -3,7 +3,7 @@ name = "aiosplatoon3ink"
 version = "0.1.0"
 description = "An asyncio client for the Splatoon 3 data that splatoon3.ink publishes, with typed models of each feed."
 authors = [{ name = "Parker Wahle", email = "regulad@regulad.xyz" }]
-license = "GPL-3.0-only"
+license = "AGPL-3.0-only"
 license-files = ["LICENSE"]
 readme = "README.md"
 requires-python = ">=3.12"

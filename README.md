@@ -64,4 +64,4 @@ poetry run pre-commit run --all-files
 
 ## License
 
-GPL-3.0. The data belongs to Nintendo, and reaches you through SplatNet 3 and splatoon3.ink.
+AGPL-3.0. The data belongs to Nintendo, and reaches you through SplatNet 3 and splatoon3.ink.
